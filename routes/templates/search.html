@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Flight</title>
+    <link rel="stylesheet" href="{% static 'css/style1.css' %}" />
+    <script defer src="{% static 'js/script1.js' %}"></script>
+</head>
+<body>
+    <div class="background"></div>
+
+    <div class="form-container">
+        <div class="form-box">
+            <h2>Search Flights</h2>
+            <form id="flight-form">
+                
+                <div class="form-row">
+                  <div class="input-group">
+                      <label for="departure">Departure</label>
+                      <input list="airport-list" id="departure" name="start"
+                             placeholder="Enter departure city or airport" required />
+                      <div id="departure-suggestions" class="suggestions"></div>  </div>
+                  <div class="input-group destination-group">
+                      <label for="destination">Destination</label>
+                      <input list="airport-list" id="destination" name="end"
+                             placeholder="Enter destination city or airport" required />
+                      <div id="destination-suggestions" class="suggestions"></div>  </div>
+                  </div>
+              
+              
+
+                <div class="form-row center-row">
+                    <div class="input-group">
+                        <label for="priority">Priority</label>
+                        <select id="priority" name="priority">
+                            <option value="time" style="color: purple; background-color: lightblue;">Time</option>
+                            <option value="cost" style="color: purple; background-color: lightblue;">Cost</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label for="traveler">Traveler Type</label>
+                        <select id="traveler" name="traveler">
+                            <option value="frequent" style="color: purple; background-color: lightblue;">Frequent Traveler</option>
+                            <option value="business" style="color: purple; background-color: lightblue;">Business Professional</option>
+                            <option value="other" style="color: purple; background-color: lightblue;">Other</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="button-row">
+                    <button type="submit" class="submit-button">Search Flight</button>
+                </div>
+            </form>
+            <div id="flight-results" style="margin-top: 40px; color: white;"></div>
+
+        </div>
+    </div>
+
+</body>
+</html>

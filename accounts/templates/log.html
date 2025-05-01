@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Optimal Flight Route Finder - Login / Signup</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+  
+</head>
+
+<body>
+
+  <div class="background"></div>
+
+  <div class="form-container">
+    <div class="form-box">
+      <h2 id="form-title">Welcome Back!</h2>
+
+      <form id="auth-form" method="post">
+        {% csrf_token %}
+        {% if messages %}
+        <div class="alert alert-primary" role="alert">
+          {% for message in messages %}
+          {{ message }}
+          {% endfor %}
+        </div>
+        {% endif %}
+       
+        <div class="input-group">
+          <label for="username">username</label>
+          <input type="text" name="username" required placeholder="Enter username">
+        </div>
+
+        <div class="input-group">
+          <label for="password">Password</label>
+          <div class="password-wrapper">
+            <input type="password" name="password" required id="password" placeholder="Enter password">
+
+          </div>
+        </div>
+
+        <!-- ✅ Forgot Password link only visible in Login mode -->
+        <div id="forgot-box" class="forgot-password">
+          <button type="button">Forgot Password?</button>
+        </div>
+
+
+
+        <!-- 🛫 Corrected button: added id="takeoff-button" -->
+        <button type="submit" id="takeoff-button" class="submit-button">Take Off</a></button>
+      </form>
+
+      <div class="toggle-box">
+        <span id="toggle-text">Don't have a Flight ID?</span>
+        <button type="button" id="toggle-button"><a href="{% url 'SignUp' %}">SignUp</a></button>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>

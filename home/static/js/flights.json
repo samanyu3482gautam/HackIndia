@@ -1,0 +1,9 @@
+[
+    { "from": "DEL", "to": "BOM" },
+    { "from": "BOM", "to": "BLR" },
+    { "from": "BLR", "to": "HYD" },
+    { "from": "DEL", "to": "MAA" },
+    { "from": "CCU", "to": "DEL" },
+    { "from": "MAA", "to": "CCU" }
+  ]
+  

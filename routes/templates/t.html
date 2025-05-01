@@ -1,0 +1,49 @@
+<div class="result-card"
+    style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); padding: 15px; margin-bottom: 10px;">
+    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+        <div style="display: flex; align-items: center;">
+            <img src="indigo_logo.png" alt="IndiGo" style="height: 30px; margin-right: 10px;">
+            <div style="font-size: 12px; color: #777777;">${data.minimum_cost.path_details[0].flight_number}</div>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <div style="font-size: 18px; font-weight: bold; margin-right: 5px;">
+                ${data.minimum_cost.path_details[0].sched_dep_time}</div>
+            <div style="font-size: 14px; color: #555555;">${data.minimum_cost.path_details[0].origin}</div>
+        </div>
+        
+        <div style="display: flex; align-items: center;">
+            <div style="font-size: 18px; font-weight: bold; margin-right: 5px;">
+                ${data.minimum_cost.path_details[0].sched_arr_time}</div>
+            <div style="font-size: 14px; color: #555555;">${data.minimum_cost.path_details[0].destination}</div>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 16px; font-weight: bold;">${data.minimum_cost.path_details[0].flight_cost}</div>
+            <div style="font-size: 12px; color: #777777;">per adult</div>
+        </div>
+        <button
+            style="background-color: #FFFFFF; color: #007BFF; border: 1px solid #007BFF; border-radius: 5px; padding: 8px 12px; cursor: pointer; font-size: 14px;">VIEW
+            PRICES</button>
+    </div>
+    <div style="display: flex; align-items: center; margin-top: 10px;">
+        <div style="color: #007BFF; cursor: pointer; margin-right: 15px;">
+            Add to compare <span style="font-size: 16px;">+</span>
+        </div>
+        <div style="background-color: #E0F2F7; color: #007BFF; border-radius: 5px; padding: 8px 12px; font-size: 12px;">
+            <span style="font-size: 14px;">🔒</span> Lock this price starting from ₹ 413 →
+        </div>
+    </div>
+    <div
+        style="background-color: #FFF3CD; color: #85640A; padding: 10px; margin-top: 10px; border-radius: 5px; font-size: 12px;">
+        <span style="color: #D68F00; font-size: 14px;">●</span> Get FLAT ₹ 175 OFF using MMT SUPER. Get Flat 12% off
+        using MMTYESFEST on Yes Bank credit cards
+    </div>
+    <div style="text-align: right; margin-top: 10px;">
+        <a href="#" style="color: #007BFF; font-size: 12px; text-decoration: none;">View Flight Details</a>
+    </div>
+</div>
+
+// <div class="result-card">
+    //     <h3>🟢 Minimum Cost Route</h3>
+    //     <strong>Cost:</strong> ₹${data.minimum_cost.cost}<br>
+    //     <strong>Path:</strong> ${data.minimum_cost.path_nodes.join(" → ")}
+    // </div>

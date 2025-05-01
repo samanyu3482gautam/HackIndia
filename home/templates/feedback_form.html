@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback Form</title>
+  <link rel="stylesheet" href="feedback_form.css" />
+</head>
+<body>
+  <div class="container">
+    <form id="feedbackForm">
+      <h2>Give us your valuable feedback</h2>
+      <p>Your feedback is very important to us</p>
+
+      <div class="emojis">
+        <label><input type="radio" name="emoji" value="😀" /><span>😀</span></label>
+        <label><input type="radio" name="emoji" value="😊" /><span>😊</span></label>
+        <label><input type="radio" name="emoji" value="😐" /><span>😐</span></label>
+        <label><input type="radio" name="emoji" value="😕" /><span>😕</span></label>
+        <label><input type="radio" name="emoji" value="😡" /><span>😡</span></label>
+      </div>
+
+      <textarea placeholder="What you want to say?" required></textarea>
+
+      <p>Are you want to share this publicly?</p>
+      <div class="radio-group">
+        <label><input type="radio" name="public" value="yes" checked /> Yes</label>
+        <label><input type="radio" name="public" value="no" /> No</label>
+      </div>
+
+      <input type="text" placeholder="Nickname" required />
+      <input type="email" placeholder="Email address (Will not be published)" required />
+
+      <label class="checkbox">
+        <input type="checkbox" required />
+        I accept the <a href="#">terms and conditions</a>
+      </label>
+
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="feedback_form.js"></script>
+</body>
+</html>

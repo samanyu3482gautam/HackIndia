@@ -1,0 +1,229 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body, html {
+  height: 100%;
+}
+
+/* Background Animation */
+.background {
+  background: url('../images/sky.png') no-repeat center center/cover;
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: -1;
+  filter: brightness(0.3);
+  animation: kenBurnsPlane 5s ease-in-out forwards;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+@keyframes kenBurnsPlane {
+  0% {
+    transform: scale(1) translateX(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1) translateX(-10px);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) translateX(0);
+    opacity: 1;
+  }
+}
+
+
+@keyframes fadeInBackground {
+  from {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Form Container */
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Form Box Animation */
+.form-box {
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(15px);
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  color: white;
+  width: 100%;
+  max-width: 700px;
+
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInFormBox 1s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInFormBox {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading */
+.form-box h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2.2em;
+  color: #eee;
+  opacity: 0;
+  animation: fadeInItem 0.6s ease-in-out 0.6s forwards;
+}
+
+/* Form Rows */
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.center-row {
+  justify-content: center;
+}
+
+/* Input Groups */
+.input-group {
+  flex: 1;
+  min-width: 180px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInItem 0.6s ease forwards;
+}
+
+.input-group:nth-child(1) { animation-delay: 0.8s; }
+.input-group:nth-child(2) { animation-delay: 1s; }
+.input-group:nth-child(3) { animation-delay: 1.2s; }
+
+@keyframes fadeInItem {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  color: #ddd;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1em;
+}
+
+.input-group input::placeholder {
+  color: #ccc;
+}
+
+/* Button Row */
+.button-row {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInItem 0.6s ease forwards;
+  animation-delay: 1.4s;
+}
+
+.submit-button {
+  padding: 14px 24px;
+  width: 220px;
+  font-size: 1.1em;
+  background-color: #5867dd;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  
+  background:0.3s ease, transform 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #414db8;
+  transform: scale(1.05);
+}
+
+/* Suggestions Dropdown */
+.suggestions {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  margin-top: 5px;
+  list-style: none;
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+  border: 1px solid #ccc;
+  font-size: 0.9em;
+}
+
+.suggestions li {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+
+.suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
+.hidden {
+  display: none;
+}
+
+
+.suggestions {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    width: 200px; /* Or whatever width you need */
+    display: block;
+}
+.suggestions li {
+    padding: 5px;
+    cursor: pointer;
+}
+.suggestions li:hover {
+    background-color: #f0f0f0;
+}
+.hidden {
+    display: none;
+}
+
