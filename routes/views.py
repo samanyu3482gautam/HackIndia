@@ -151,8 +151,8 @@ def find_shortest_route(request):
     converted_flight_data = load_flight_data()
     graph_with_times = convert_to_graph_structure(converted_flight_data)
 
-    start = request.GET.get('start', '').upper()
-    end = request.GET.get('end', '').upper()
+    start = "JFK"
+    end = "LAX"
 
     if not start or not end:
         return JsonResponse({'error': 'Missing start or end'}, status=400)
