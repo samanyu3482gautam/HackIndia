@@ -27,7 +27,7 @@ This problem statement is shared by **SingularityNET** – Title Sponsor of **Ha
 ## 🔧 Tech Stack
 
 - **Backend:** Django
-- **Frontend:** HTML, CSS, JavaScript
+- **Frontend:** HTML, CSS, JavaScript, Leaflet API maps for flights routes
 - **Algorithms:** Dijkstra’s Algorithm, Multilayer Perceptron (MLP)
 - **Database:** Flight data from 50,000+ U.S. flights
 
