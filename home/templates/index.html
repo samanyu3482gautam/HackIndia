@@ -34,7 +34,7 @@
     </ul>
     <div class="nav__btns">
       {% if request.user.is_authenticated%}
-      <button class="btn">Hi {{user.username}}</button>
+      <a href="{% url 'profile' %}" style="text-decoration: none; color: white;"><button class="btn">Hi {{user.username}}</button></a>
 
       {% else %}
       <button class="btn"><a href="{% url 'SignIn' %}" style="text-decoration: none;color: white;">LOGIN OR CREATE ACCOUNT</a></button>
@@ -245,7 +245,7 @@
       <div class="footer__col">
         <h4>Feedback</h4>
         <form action="feedback_form.html">
-          <button class="btn" type="submit" style="margin-top: 10px;">Send Feedback</button>
+          <a href="#" style="text-decoration: none;color: white;"><button class="btn" type="submit" style="margin-top: 10px;">Send Feedback</button></a>
         </form>
       </div>
     </div>

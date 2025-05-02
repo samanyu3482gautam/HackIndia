@@ -1,62 +1,107 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Search Flight</title>
     <link rel="stylesheet" href="{% static 'css/style1.css' %}" />
-    <script defer src="{% static 'js/script1.js' %}"></script>
 </head>
+
 <body>
     <div class="background"></div>
 
     <div class="form-container">
         <div class="form-box">
             <h2>Search Flights</h2>
-            <form id="flight-form">
-                
+            <form method="POST" action="{% url 'search_flights' %}">
+
+                {% csrf_token %}
                 <div class="form-row">
-                  <div class="input-group">
-                      <label for="departure">Departure</label>
-                      <input list="airport-list" id="departure" name="start"
-                             placeholder="Enter departure city or airport" required />
-                      <div id="departure-suggestions" class="suggestions"></div>  </div>
-                  <div class="input-group destination-group">
-                      <label for="destination">Destination</label>
-                      <input list="airport-list" id="destination" name="end"
-                             placeholder="Enter destination city or airport" required />
-                      <div id="destination-suggestions" class="suggestions"></div>  </div>
+                    <div class="input-group">
+                        <label for="departure">Departure</label>
+                        <input name="start" id="departure" placeholder="Enter departure airport (e.g., JFK)" required />
+                    </div>
+                    <div class="input-group destination-group">
+                        <label for="destination">Destination</label>
+                        <input name="end" id="destination" placeholder="Enter destination airport (e.g., LAX)"
+                            required />
+                    </div>
+                </div>
+                <div class="form-row center-row">
+                    <div class="input-group">
+                      <label for="travel_date">Travel Date</label>
+                      <input type="date" id="travel_date" name="travel_date" required />
+                    </div>
                   </div>
-              
-              
+                  
 
                 <div class="form-row center-row">
                     <div class="input-group">
                         <label for="priority">Priority</label>
                         <select id="priority" name="priority">
-                            <option value="time" style="color: purple; background-color: lightblue;">Time</option>
-                            <option value="cost" style="color: purple; background-color: lightblue;">Cost</option>
+                            <option value="time">Time</option>
+                            <option value="cost">Cost</option>
+                            <option value="balanced">Balanced</option>
                         </select>
                     </div>
                     <div class="input-group">
                         <label for="traveler">Traveler Type</label>
                         <select id="traveler" name="traveler">
-                            <option value="frequent" style="color: purple; background-color: lightblue;">Frequent Traveler</option>
-                            <option value="business" style="color: purple; background-color: lightblue;">Business Professional</option>
-                            <option value="other" style="color: purple; background-color: lightblue;">Other</option>
+                            <option value="frequent">Frequent Traveler</option>
+                            <option value="business">Business Professional</option>
+                            <option value="other">Other</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="button-row">
                     <button type="submit" class="submit-button">Search Flight</button>
+                    <button type="button" class="submit-button" style="margin-left: 5px;"><a href="{% url 'home' %}"
+                            style="text-decoration: none; color: white;">⬅️ Back To Home</a></button>
                 </div>
             </form>
-            <div id="flight-results" style="margin-top: 40px; color: white;"></div>
+            {% if flights %}
+<div id="flight-results" style="margin-top: 40px; display: flex; flex-direction: column; gap: 20px;">
+    <h3 style="color: white;">Flight Results:</h3>
+    {% for flight in flights %}
+    <div style="background: #ffffff; color: #333; border-radius: 12px; padding: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); max-width: 600px; margin: auto; font-family: 'Segoe UI', sans-serif;">
+        
+        <div style="display: flex; justify-content: space-between; font-size: 18px; font-weight: 600; margin-bottom: 15px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+            <h4 style="margin: 0;">{{ flight.airline_name }}</h4>
+            <span>Flight {{ flight.flight_number }}</span>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 10px 0;">
+            <div style="flex: 1; text-align: center;">
+                <strong>From:</strong> {{ flight.origin }}<br>
+                <span>{{ flight.formatted_dep_time }}</span>
+            </div>
+            <div style="font-size: 24px; color: #0078d7; margin: 0 10px;">→</div>
+            <div style="flex: 1; text-align: center;">
+                <strong>To:</strong> {{ flight.dest }}<br>
+                <span>{{ flight.formatted_arr_time }}</span>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 16px; margin-top: 15px; color: #555;">
+            <div>
+                <p style="margin: 4px 0;">Cost: ₹{{ flight.flight_cost }}</p>
+                <p style="margin: 4px 0;">Distance: {{ flight.distance }} km</p>
+            </div>
+            <a href="{% url 'payment_page' %}" style="background-color: #0078d7; color: white; padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; transition: background 0.3s;">Book Here</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% elif no_results %}
+<p style="color: white; margin-top: 20px;">No flights found.</p>
+{% endif %}
+
 
         </div>
     </div>
-
 </body>
+
 </html>

@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flight Payment</title>
+  <link rel="stylesheet" href="{% static 'css/payment.css' %}" />
+</head>
+<body>
+  <div class="payment-container">
+    <h2>Complete Your Payment</h2>
+
+    <div class="payment-methods">
+      <button class="tab-btn active" onclick="showTab('card')">💳 Card</button>
+      <button class="tab-btn" onclick="showTab('upi')">📱 UPI</button>
+      <button class="tab-btn" onclick="showTab('netbanking')">🏦 Net Banking</button>
+    </div>
+
+    <form method="POST" >
+      {% csrf_token %}
+
+      <div class="payment-form" id="card">
+        <label>Cardholder Name</label>
+        <input type="text" name="cardholder_name" placeholder="NAME" required />
+
+        <label>Card Number</label>
+        <input type="text" name="card_number" placeholder="CARD NUMBER" required />
+
+        <div class="row">
+          <div>
+            <label>Expiry</label>
+            <input type="text" name="expiry" placeholder="MM/YY" required />
+          </div>
+          <div>
+            <label>CVV</label>
+            <input type="text" name="cvv" placeholder="CVV" required />
+          </div>
+        </div>
+      </div>
+
+      <div class="payment-form hidden" id="upi">
+        <label>UPI ID</label>
+        <input type="text" name="upi_id" placeholder="username@upi" />
+      </div>
+
+      <div class="payment-form hidden" id="netbanking">
+        <label>Select Bank</label>
+        <select name="bank_name">
+          <option value="SBI">SBI</option>
+          <option value="HDFC">HDFC</option>
+          <option value="ICICI">ICICI</option>
+          <option value="Axis Bank">Axis Bank</option>
+        </select>
+      </div>
+
+      <button type="submit" class="pay-btn">Pay Now</button>
+    </form>
+  </div>
+
+  <script src="{% static 'js/payment.js' %}"></script>
+</body>
+</html>

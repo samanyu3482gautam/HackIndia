@@ -321,6 +321,92 @@ def get_processed_data(request):
     return JsonResponse(processed_data_from_db)
 
 
-
+from django.shortcuts import render
 def search_flights(request):
-    return render(request, 'search.html')
+    context = {}
+    if request.method == 'POST':
+        start = request.POST.get('start', '').upper()
+        end = request.POST.get('end', '').upper()
+        priority = request.POST.get('priority')
+
+        if not start or not end:
+            context['no_results'] = True
+            return render(request, 'search.html', context)
+
+        converted_flight_data = load_flight_data()
+        graph_with_times = convert_to_graph_structure(converted_flight_data)
+
+        def get_flight_by_id(fid):
+            for f in converted_flight_data:
+                if f['id'] == fid:
+                    return f
+            return None
+
+        path = []
+        if priority == 'time':
+            _, path = dijkstra_with_time(graph_with_times, start, end_node=end)
+        elif priority == 'cost':
+            _, path = dijkstra(graph_with_times, start, end_node=end, weight_type='cost')
+        elif priority == 'balanced':
+            all_costs = [f['cost'] for flights in graph_with_times.values() for f in flights]
+            all_durations = [f['duration'] for flights in graph_with_times.values() for f in flights]
+            min_cost = min(all_costs) if all_costs else 0
+            max_cost = max(all_costs) if all_costs else 0
+            min_dur = min(all_durations) if all_durations else 0
+            max_dur = max(all_durations) if all_durations else 0
+
+            def dijkstra_balanced(graph, start_node, end_node):
+                distances = defaultdict(lambda: float('inf'))
+                distances[start_node] = 0
+                paths = defaultdict(list)
+                paths[start_node] = [(start_node, 0, None)]
+                queue = [(0, start_node)]
+
+                while queue:
+                    score, node = heapq.heappop(queue)
+                    if score > distances[node]:
+                        continue
+                    if node == end_node:
+                        break
+                    for flight in graph[node]:
+                        neighbor = flight['destination']
+                        cost = flight['cost']
+                        duration = flight['duration']
+                        flight_id = flight['id']
+                        norm_cost = (cost - min_cost) / (max_cost - min_cost) if max_cost > min_cost else 0
+                        norm_dur = (duration - min_dur) / (max_dur - min_dur) if max_dur > min_dur else 0
+                        weight = 0.5 * norm_cost + 0.5 * norm_dur
+                        total = score + weight
+                        if total < distances[neighbor]:
+                            distances[neighbor] = total
+                            new_path = list(paths[node])
+                            new_path.append((neighbor, total, flight_id))
+                            paths[neighbor] = new_path
+                            heapq.heappush(queue, (total, neighbor))
+                return distances, paths
+
+            _, path = dijkstra_balanced(graph_with_times, start, end)
+
+        flight_ids = [fid for _, _, fid in path.get(end, [])[1:]]
+        flights = [get_flight_by_id(fid) for fid in flight_ids if fid is not None]
+
+        if flights:
+            for f in flights:
+                f['formatted_dep_time'] = f"{f['hour']:02d}:{f['minute']:02d}"
+                dep_datetime = datetime(
+                    int(f['year']), int(f['month']), int(f['day']),
+                    int(f['hour']), int(f['minute'])
+                )
+                arr_datetime = dep_datetime + timedelta(minutes=f['air_time'])
+                f['formatted_arr_time'] = arr_datetime.strftime("%H:%M")
+
+
+            context['flights'] = flights
+        else:
+            context['no_results'] = True
+
+    return render(request, 'search.html', context)
+
+
+def payment_page(request):
+    return render(request,'payment.html')

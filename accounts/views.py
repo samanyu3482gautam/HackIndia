@@ -23,27 +23,7 @@ def login_page(request):
             return redirect('/home')
     return render(request,'log.html')
 
-# def sign_up(request):
-#     if request.method=="POST":
-#         email = request.POST.get('email')
-#         password = request.POST.get('password')
-#         c_password = request.POST.get('confirm_password')
-#         if(c_password!=password):
-#             messages.info(request,'Password do not match.')
-#             return redirect('signup')
-#         user=User.objects.filter(email=email)
-#         if user.exists():
-#             messages.info(request,'Username already exists!')
-#             return redirect('SignIn')
-#         user = User.objects.create(
-#             email=email,
-            
-#         )
-#         user.set_password(password)
-#         user.save()  
-#         messages.success(request, "Account created successfully! Please login.")
-#         return redirect('SignIn') 
-#     return render(request,'sig.html')
+
 from django.contrib.auth import get_user_model  # Import get_user_model
 from django.core.exceptions import ValidationError
 
@@ -80,3 +60,9 @@ def sign_up(request):
                     messages.error(request, f"{field}: {error}") #Show the user what went wrong
             return redirect('SignUp')
     return render(request, 'sig.html')
+
+
+def logout_user(request):
+    logout(request)
+    messages.info(request,'You Have Been Logged Out.')
+    return redirect('SignUp')
